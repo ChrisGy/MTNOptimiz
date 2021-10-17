@@ -1,0 +1,9 @@
+Bundle Column:
+0 = None            
+1 = GHC 10 --- 971.82 MB            
+2 = GHC 12 - 2.5GB            
+3 = Midnight bundle            
+4 = 5gh for 1GB (just for me)            
+5 = GHC 3 --- 471.70 MB            
+6 = GHC 5 Mashup (MTN Pulse)            
+7 = GHC 10 Mashup (MTN Pulse)            

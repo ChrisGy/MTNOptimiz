@@ -1,0 +1,19 @@
+predict k
+find average data volume being consumed per unit time, v
+use k and v to generate data bundles over t_i = day, week, and month
+
+----------------------
+
+estimate cedis spent per week
+estimate data consumed per week
+
+Find k = cedis per data per time.
+
+Model 1 learns and generates (regression) k for each case
+
+Model 2 learns and predicts (classification) package 
+
+k Regression: The interface takes k and predicts
+
+
+
