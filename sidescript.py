@@ -1,7 +1,7 @@
 import pandas as pd
 import math
 
-definitions = [None,10/971.82,12/(2.5*1024),None,5/1024,471.7/3,616.32/10,292.4/5]
+definitions = [None,10/971.82,12/(2.5*1024),None,5/1024,3/471.7,10/616.32,5/292.4]
 
 csv = pd.read_csv('data.csv')
 

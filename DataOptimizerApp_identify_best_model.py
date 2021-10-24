@@ -1,5 +1,5 @@
 import pandas as pd
-#import numpy as np
+# import numpy as np
 import matplotlib.pyplot as plt
 # import seaborn as sns
 from sklearn.model_selection import train_test_split
@@ -15,23 +15,16 @@ def bundleClassifier():
 
 # ***************************************
 
-def kpredictor(_input):
+def kpredictor():
     model = sklearn.linear_model.HuberRegressor()
     model.max_iter = 20000
     splitRatio = 0.1
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = splitRatio,random_state = 0)
-    # model=LinearRegression()
-    model = getattr(sklearn.linear_model,_model)()
-    model.max_iter = 20000
-    model.fit(x_train, y_train)
-    model.predict(_input)
-    
+
 def defaultCode():
     models = dir(sklearn.linear_model)
     rawinputdata = pd.read_csv('data21.csv')
-    x = rawinputdata[[i for i in list(rawinputdata.columns) if not (i=='k' or i=='Purchases /month' or i=='Pref (primary)'or i=='Prefer optimization' or i=='Pref (second)' or i=='Unnamed')]]
+    x = rawinputdata[[i for i in list(rawinputdata.columns) if not (i=='k' or i=='Purchases /month' or i=='Pref (primary)'or i=='Prefer optimization' or i=='Pref (second)')]]
     y = rawinputdata['k']
-    print("y the input is \n",y)
     models.remove('ElasticNet')
     models.remove('ElasticNetCV')
     models.remove('Hinge')
@@ -48,28 +41,24 @@ def defaultCode():
     for _model in models:
         all_mses = []
         all_r2s = []
-        print("\n\n\n**********************************************")
+        print("**********\n")
         splitRatio = 0.1
         print("Current Model:   ",_model)
-        for i in range(1):
+        for i in range(9):
             
             x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = splitRatio,random_state = 0)
             # model=LinearRegression()
             model = getattr(sklearn.linear_model,_model)()
             model.max_iter = 20000
             model.fit(x_train, y_train)
-            x_test2 = ['4', '1', '0', '10', '3', '2', '5', '3', '8', '2', '0.006359975']
-            print("test data format:\n",x_test2,"\n of type: \n",type(x_test))
-            
-            y_pred=model.predict(pd.DataFrame([x_test2],None,x.columns))
-            print("prediction: ",y_pred)
+            y_pred=model.predict(x_test)
             # x = inputdata[]
             all_mses.append(mean_squared_error(y_test,y_pred))
             all_r2s.append(r2_score(y_test,y_pred))
             splitRatio+=0.1
             #print("Current splitRatio ",splitRatio)
-##        print("Best R2, max: ", max(all_r2s), "occuring at splitRatio = ",0.1+0.1*all_r2s.index(max(all_r2s)))
-##        print("Best MSE, min", min(all_mses), "occuring at splitRatio = ",0.1+0.1*all_mses.index(min(all_mses)))
+        print("Best R2, max: ", max(all_r2s), "occuring at splitRatio = ",0.1+0.1*all_r2s.index(max(all_r2s)))
+        print("Best MSE, min", min(all_mses), "occuring at splitRatio = ",0.1+0.1*all_mses.index(min(all_mses)))
 
         # from sklearn.linear_model import LinearRegression
         # from sklearn.metrics import r2_score
