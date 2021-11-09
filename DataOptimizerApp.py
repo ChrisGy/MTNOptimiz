@@ -11,7 +11,21 @@ def  cls(): print("\n"*20)
 # %matplotlib inline: Use plt.show for Python
 
 def bundleClassifier(_inputParams):
-    pass
+    import sklearn.preprocessing
+    model = sklearn.svm.SVC()
+    model.max_iter = 20000
+    splitRatio = 0.1
+    rawinputdata = pd.read_csv('data21.csv')
+    x = rawinputdata[[i for i in list(rawinputdata.columns) if not (i=='k' or i=='Purchases /month' or i=='Pref (primary)'or i=='Prefer optimization' or i=='Pref (second)' or i=='Unnamed')]]
+    sklearn.preprocessing.StandardScaler().fit(x)
+    y = rawinputdata['Pref (primary)']
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = splitRatio,random_state = 0)
+    model.fit(x_train, y_train)
+    inputParams = pd.DataFrame(data=_inputParams)
+    result = model.predict(inputParams).__getitem__(0)
+    print("bundleClassifier result is {}".format(result))
+    existingBundles = []
+    return(existingBundles[result])
 
 # ***************************************
 
@@ -19,15 +33,19 @@ def kpredictor(_inputParams):
     model = sklearn.linear_model.HuberRegressor()
     model.max_iter = 20000
     splitRatio = 0.1
+    rawinputdata = pd.read_csv('data21.csv')
+    x = rawinputdata[[i for i in list(rawinputdata.columns) if not (i=='k' or i=='Purchases /month' or i=='Pref (primary)'or i=='Prefer optimization' or i=='Pref (second)' or i=='Unnamed')]]
+    y = rawinputdata['k']
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = splitRatio,random_state = 0)
-    # model=LinearRegression()
-    model = getattr(sklearn.linear_model,_model)()
-    model.max_iter = 20000
+    model=sklearn.linear_model.LinearRegression()
     model.fit(x_train, y_train)
-    model.predict(_inputParams)
+    inputParams = pd.DataFrame(data=_inputParams)
+    result = model.predict(inputParams)
+    print("kpredictor result is {}".format(result))
+    return(result)
     
 # def defaultCode():
-if __name__ == "__mvain__":
+if __name__ == "__maxin__":
     models = dir(sklearn.linear_model)
     rawinputdata = pd.read_csv('data21.csv')
     x = rawinputdata[[i for i in list(rawinputdata.columns) if not (i=='k' or i=='Purchases /month' or i=='Pref (primary)'or i=='Prefer optimization' or i=='Pref (second)' or i=='Unnamed')]]
@@ -80,10 +98,14 @@ if __name__ == "__mvain__":
         # y_pred=model.predict(x_test)
 # defaultCode()
 
-def runClassifier():
-    pass
-def newBundleRun():
-    pass
+def runClassifier(inputParams, ):
+    return bundleClassifier(inputParams)
+
+def newBundleRun(inputParams, userMaxMB):
+    k = kpredictor(inputParams)
+    bundleMB = max(20, int(userMaxMB))
+    price = k*bundleMB
+    return '{} MB at GHC {}'.format(bundleMB, price)
 
 
 if __name__ == "__main__":
@@ -93,11 +115,16 @@ if __name__ == "__main__":
     #Data Collection:
     inputParams = {}
     input_columns = ['WhatsApp', 'YouTube', 'FB', 'Twitter', 'News', 'Research','Coursera/edX', 'Webinar', 'Email', 'High social media', 'Games']
+    print("User data collection on usage parameters:\n************")
     for i,v in enumerate(input_columns):
         inputParams[v] = [float(input("{column:<}:  ".format(column=v)))]
+    result = ""
     if (shouldClassify == '1'):
-        runClassifier()
+        result = runClassifier(inputParams)
     else: #shouldClassify is 2
-        newBundleRun()
-    
-    
+        maxMBtoColumn = {'WhatsApp': 300,'YouTube': 2048, 'FB': 1024, 'Twitter': 1024, 'News': 300, 'Research': 300, 'Coursera/edX': 1024, 'Webinar': 512, 'Email': 300,'High social media': 2048, 'Games': 512}
+        userMaxMB = maxMBtoColumn[max(inputParams, key=inputParams.get)]
+        result = newBundleRun(inputParams, userMaxMB)
+        
+    print("Resulting bundle is: ")
+    print(result)
