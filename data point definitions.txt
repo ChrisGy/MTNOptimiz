@@ -10,3 +10,8 @@ Bundle Column:
 
 
 ['971.82 MB at GHC 10', '2.5 GB at GHC 12', 'Midnight Bundle', '1GB at GHC 5 (Just for Me)', 'Special bundle, 471.70 MB at GHC 3', 'MTN Pulse at GHC 5', 'MTN Pulse at GHC 10']
+
+conda remove spyder
+conda remove python-language-server
+conda update anaconda
+conda install spyder=5.1.5
