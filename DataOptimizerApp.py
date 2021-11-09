@@ -45,7 +45,7 @@ def runClassifier(inputParams, ):
     return bundleClassifier(inputParams)
 
 def newBundleRun(inputParams, userMaxMB):
-    k = kpredictor(inputParams)
+    k = kpredictor(inputParams) # Unit is GHC per MB
     bundleMB = max(20, int(userMaxMB))
     price = (k*bundleMB)
     roundPrice = (k*bundleMB)[0].__round__()
