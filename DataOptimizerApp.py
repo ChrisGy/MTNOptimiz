@@ -24,7 +24,7 @@ def bundleClassifier(_inputParams):
     inputParams = pd.DataFrame(data=_inputParams)
     result = model.predict(inputParams).__getitem__(0)
     print("bundleClassifier result is {}".format(result))
-    existingBundles = []
+    existingBundles = ['971.82 MB at GHC 10', '2.5 GB at GHC 12', 'Midnight Bundle', '1GB at GHC 5 (Just for Me)', 'Special bundle, 471.70 MB at GHC 3', 'MTN Pulse at GHC 5', 'MTN Pulse at GHC 10']
     return(existingBundles[result])
 
 # ***************************************

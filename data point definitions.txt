@@ -7,3 +7,6 @@ Bundle Column:
 5 = GHC 3 --- 471.70 MB            
 6 = GHC 5 Mashup (MTN Pulse)            
 7 = GHC 10 Mashup (MTN Pulse)            
+
+
+['971.82 MB at GHC 10', '2.5 GB at GHC 12', 'Midnight Bundle', '1GB at GHC 5 (Just for Me)', 'Special bundle, 471.70 MB at GHC 3', 'MTN Pulse at GHC 5', 'MTN Pulse at GHC 10']
